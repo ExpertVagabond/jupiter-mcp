@@ -116,16 +116,23 @@ export class JupiterClient {
   }
 
   // ── Lend ─────────────────────────────────────────────────
+  // Note: Lend API only exposes deposit/withdraw transaction builders.
+  // No "list markets" or "list yields" endpoint exists in the public API.
+  // This is a DX gap — you can deposit but can't discover what to deposit into.
 
-  /** List available lending markets/yields */
-  async lendMarkets() {
-    return this.request("/lend/v1/markets");
+  /** Create a deposit transaction for Jupiter Lend Earn */
+  async lendDeposit(params: { asset: string; signer: string; amount: string }) {
+    return this.request("/lend/v1/earn/deposit", {
+      method: "POST",
+      body: params,
+    });
   }
 
-  /** Get yield details for a specific token */
-  async lendYield(mint: string) {
-    return this.request(`/lend/v1/earn/yields`, {
-      params: { mint },
+  /** Create a withdraw transaction for Jupiter Lend Earn */
+  async lendWithdraw(params: { asset: string; signer: string; amount: string }) {
+    return this.request("/lend/v1/earn/withdraw", {
+      method: "POST",
+      body: params,
     });
   }
 
@@ -189,24 +196,31 @@ export class JupiterClient {
 
   // ── Prediction Markets ───────────────────────────────────
 
-  /** List available prediction markets */
-  async predictionMarkets(params?: { status?: string; limit?: number }) {
-    return this.request("/prediction/v1/markets", { params: params as any });
-  }
-
-  /** Get market details */
-  async predictionMarket(marketId: string) {
-    return this.request(`/prediction/v1/markets/${marketId}`);
+  /** List prediction events with optional filtering */
+  async predictionEvents(params?: {
+    provider?: "kalshi" | "polymarket";
+    includeMarkets?: boolean;
+    category?: string;
+    sortBy?: "volume" | "beginAt";
+    sortDirection?: "asc" | "desc";
+    filter?: "new" | "live" | "trending";
+    start?: number;
+    end?: number;
+  }) {
+    return this.request("/prediction/v1/events", { params: params as any });
   }
 
   // ── Perps ────────────────────────────────────────────────
+  // Note: Perps REST API is documented as "work in progress."
+  // These endpoints may not be live yet. Perps interaction currently
+  // requires direct program calls via Anchor IDL.
 
-  /** List perpetual markets */
+  /** List perpetual markets (WIP — may 404) */
   async perpsMarkets() {
     return this.request("/perps/v1/markets");
   }
 
-  /** Get position info for a wallet */
+  /** Get position info for a wallet (WIP — may 404) */
   async perpsPositions(wallet: string) {
     return this.request("/perps/v1/positions", {
       params: { wallet },
