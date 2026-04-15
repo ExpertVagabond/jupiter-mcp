@@ -1,0 +1,33 @@
+{
+  "name": "@psmedia/jupiter-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Jupiter Developer Platform — swap, lend, DCA, limit orders, prediction markets, and more via any AI agent",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "jupiter-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "jupiter",
+    "solana",
+    "defi",
+    "swap",
+    "agent"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
