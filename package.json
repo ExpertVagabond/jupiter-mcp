@@ -1,5 +1,6 @@
 {
   "name": "@psmedia/jupiter-mcp",
+  "author": "Matthew Karsten <matthewkarstenconnects@gmail.com>",
   "version": "0.1.0",
   "description": "MCP server for Jupiter Developer Platform — swap, lend, DCA, limit orders, prediction markets, and more via any AI agent",
   "type": "module",

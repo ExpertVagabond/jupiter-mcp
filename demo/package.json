@@ -1,5 +1,6 @@
 {
   "name": "jupiter-mcp-demo",
+  "author": "Matthew Karsten <matthewkarstenconnects@gmail.com>",
   "version": "1.0.0",
   "private": true,
   "scripts": {
